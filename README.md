@@ -1,6 +1,6 @@
-### BikeShare Data Analysis
+# BikeShare Data Analysis
 
-# Project By Samuel Chan as Part of Capital One's "Build a web app that analyzes bike share data" Challenge
+#### Project By Samuel Chan as Part of Capital One's "Build a web app that analyzes bike share data" Challenge
 
 **Used Jekyll Theme "Forty" in Github Pages, Jekyll is an extendable, site generator as well as a Ruby Gem**
 
@@ -23,5 +23,5 @@ _Sources for site images:_
 _Data Set (slightly modified to remove last two columns, which were redundant for my purposes):_
 * https://onedrive.live.com/embed?cid=C5E9968C10017902&resid=C5E9968C10017902%21108&authkey=AGS3CfPqFt4CXM0
 
-_Credits_
+_Credits_:
 * Theme: Forty, Design: HTML5 UP, Jekyll integration: Andrew Banchich

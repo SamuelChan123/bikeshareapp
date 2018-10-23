@@ -12,6 +12,8 @@
 * _In the SQL folder, create.sql gives the schema for the SQL database, load.sql is run by setup.sh to load the created db with data from the .csv file provided._
 
 
+## Other Details: 
+
 _Sources for site images:_
 * https://images6.alphacoders.com/549/549198.jpg
 * https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2018/bikesharecom.jpg

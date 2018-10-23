@@ -1,5 +1,5 @@
 ---
-title: Trip Type and Pass holder
+title: Trip Route Category and Pass Holder
 layout: landing
 description: 'What is the breakdown of Trip Route Category-Passholder type combinations? What might make a particular combination more popular?'
 image: assets/images/bike3.jpg

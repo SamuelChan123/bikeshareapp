@@ -2,7 +2,7 @@
 title: BikeShare Analytics
 subtitle: by Samuel Chan
 email: samuelchaneiusgloria@gmail.com
-description: Jekyll Themed Site for BikeShare Analytics
+description: To Analyze and Visualize Bike Share Data from Los Angeles
 baseurl: "/bikeshareapp" # the subpath of your site, e.g. /blog
 url: # the base hostname & protocol for your site
 author: Samuel Chan

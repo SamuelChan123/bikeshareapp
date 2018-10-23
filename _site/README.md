@@ -1,14 +1,28 @@
-### BikeShare Data Analysis
+# BikeShare Data Analysis
 
-# Project By Samuel Chan as Part of Capital One's "Build a web app that analyzes bike share data" Challenge
+#### Project By Samuel Chan as Part of Capital One's "Build a web app that analyzes bike share data" Challenge
 
-**Used Jekyll Theme "Forty" in Github Pages**
+* Used Jekyll Theme "Forty" in Github Pages, Jekyll is an extendable, site generator as well as a Ruby Gem
 
-**Ran SQL queries against a PostgreSQL 10 SQL database constructed almost exactly (with the exclusion of the last two columns) as the data set provided. **
+* Ran SQL queries against a PostgreSQL 10 SQL database constructed almost exactly (with the exclusion of the last two columns) as the data set provided.
 
-_Postgres was installed on a Ubuntu 14.04 Virtual Machine using vagrant and VirtualBox_
-_In the SQL folder, create.sql gives the schema for the SQL database, load.sql is run by setup.sh to load the created db with data from the .csv file provided._
+* _Postgres was installed on a Ubuntu 14.04 Virtual Machine using vagrant and VirtualBox_
 
+## Structure: 
+* _In the SQL folder, create.sql gives the schema for the SQL database, load.sql is run by setup.sh to load the created db with data from the .csv file provided._
+
+
+## Other Details: 
+
+_Graphs and BikeShare Data, Raw Form:_
+
+* https://docs.google.com/spreadsheets/d/1rVLPtiSPRDdep2JzK3rndaCvenErN2CiX61xaQPIWig/edit#gid=1112289210
+
+_Data Set (slightly modified to remove last two columns, which were redundant for my purposes):_
+* https://onedrive.live.com/embed?cid=C5E9968C10017902&resid=C5E9968C10017902%21108&authkey=AGS3CfPqFt4CXM0
+
+_Credits_:
+* Theme: Forty, Design: HTML5 UP, Jekyll integration: Andrew Banchich
 
 _Sources for site images:_
 * https://images6.alphacoders.com/549/549198.jpg
@@ -18,12 +32,3 @@ _Sources for site images:_
 * https://media.gannett-cdn.com/courierjournal/brightcove/29913742001/201705/1885/29913742001_5447959538001_5447937546001-vs.jpg
 * https://ase.org/sites/ase.org/files/styles/featured_blog/public/bike_share2_0_website.png?itok=lL_t-9r1
 * https://whyy.org/wp-content/uploads/2017/12/bigstock-210609340-768x513.jpg
-
-Data Set (slightly modified to remove last two columns, which were redundant for my purposes):
-
-https://onedrive.live.com/embed?cid=C5E9968C10017902&resid=C5E9968C10017902%21108&authkey=AGS3CfPqFt4CXM0
-
-* Credits
-Theme: Forty
-Design: HTML5 UP
-Jekyll integration: Andrew Banchich

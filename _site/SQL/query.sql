@@ -21,3 +21,20 @@ FROM
 CAST(EndingLatitude AS FLOAT), CAST(EndingLongitude AS FLOAT)) AS dist2, Duration FROM BikeShare)
 
 AS sumAll;
+
+-- Most Popular Stations
+
+SELECT A.StartingId AS StationId, (A.counts1 + B.counts2) AS AllRides
+
+FROM
+((SELECT StartingId, COUNT(*)
+AS counts1 FROM BikeShare GROUP BY StartingId) AS A
+
+INNER JOIN
+
+(SELECT EndingId, COUNT(*)
+AS counts2 FROM BikeShare GROUP BY EndingId) AS B
+
+ON A.StartingId = B.EndingId)
+
+ORDER BY (A.counts1 + B.counts2) DESC;

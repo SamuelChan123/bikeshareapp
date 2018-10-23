@@ -37,7 +37,7 @@ nav-menu: true
 <section id="three">
 	<div class="inner">
 		<header class="major">
-			<h2>SQL Queries Used</h2>
+			<h2>SQL Query Used</h2>
 		</header>
 
 		SELECT SUM(count) / (SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare))) * 0.5 FROM (SELECT StartingId, EndingId, Duration, StartTime, Endtime, COUNT(*) AS count FROM BikeShare WHERE (TripRouteCategory = 'One Way' AND Duration > 300 ) AND (PassHolderType = 'Flex Pass' OR PassHolderType = 'Monthly Pass' OR PassHolderType = 'Staff Annual') GROUP BY StartingId, EndingId, Duration, StartTime, EndTime HAVING ((EXTRACT(HOUR FROM StartTime) > 6 AND EXTRACT(HOUR FROM StartTime) < 9) OR (EXTRACT(HOUR FROM StartTime) > 17 AND EXTRACT(HOUR FROM StartTime) < 19)) ORDER BY COUNT(*) DESC) AS countTable;

@@ -3,7 +3,7 @@ title: Net Change in Bikes
 layout: landing
 description: 'Is there a net change of bikes over the course of a day? If so, when and
 where should bikes be transported in order to make sure bikes match travel patterns?'
-image: assets/images/bike2.jpg
+image: assets/images/bike3.jpg
 nav-menu: true
 ---
 
@@ -12,30 +12,22 @@ nav-menu: true
 
 <!-- One -->
 <section id="two" class="spotlights">
-	<section>
-		<div class="content">
-			<div class="inner">
-				<header class="major">
-					<h3>Graphs and Data Visualization</h3>
-				</header>
-					<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=271665241&amp;format=interactive"></iframe>				
-					<br>
-					<p> Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus. </p>
 
-					<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=29820259&amp;format=interactive"></iframe>
-					<br>
-					<p> Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus. </p>
-			</div>
-		</div>
-	</section>
 	<section>
-			<img src="assets/images/bike2.jpg" alt="" data-position="top center" />
-		<div class="content">
+			<div class="content">
 			<div class="inner">
 				<header class="major">
-					<h3>Analysis</h3>
-				</header>
-				<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.</p>
+				<h3>Analysis</h3>
+			</header>
+			<b><u>Roughly <i>25</i> commuters use bike sharing as a regular part of their commute</u></b>
+			<br>
+			<br>
+			<h4> Assumptions/Criteria </h4>
+			<p> 1. Assume the average miles per second for each user is roughly the same (hence, find this by dividing sum of distances in One way trips by sum of duration)
+
+			<br>2. Hence, since d = rt, multiply this miles per second average by the total time spent in all trips to get the total distance
+
+			<br>3. Divide the total distance by the total number of trips to get the average distance travelled per trip.</p>
 			</div>
 		</div>
 	</section>
@@ -45,20 +37,25 @@ nav-menu: true
 <section id="three">
 	<div class="inner">
 		<header class="major">
-			<h2>SQL Queries Used</h2>
+			<h2>SQL Query Used</h2>
 		</header>
 
-		SELECT CASE WHEN EXTRACT(MONTH FROM StartTime) >= 12 OR EXTRACT(MONTH FROM StartTime) <= 2 THEN 'Winter' WHEN EXTRACT(MONTH FROM StartTime) >= 3 AND EXTRACT(MONTH FROM StartTime) <= 5 THEN 'Spring' WHEN EXTRACT(MONTH FROM StartTime) >= 6 AND EXTRACT(MONTH FROM StartTime) <= 8 THEN 'Summer' ELSE 'Autumn' END Season, PassholderType, COUNT(*) AS NumberOfRides FROM BikeShare GROUP BY Season, PassholderType ORDER BY COUNT(*)  DESC, Season DESC;
-
+		CREATE OR REPLACE FUNCTION distanceInMiles(lat1 FLOAT, lon1 FLOAT, lat2 FLOAT, lon2 FLOAT) RETURNS FLOAT AS $$
+		DECLARE
+		   x float = 69.1 * (lat2 - lat1);
+		   y float = 69.1 * (lon2 - lon1) * cos(lat1 / 57.3);
+		BEGIN
+		   RETURN sqrt(x * x + y * y);
+		END
+		$$ LANGUAGE plpgsql;
 		<br>
 		<br>
+		SELECT SUM(Duration) * (SELECT SUM(dist)/SUM(Duration) AS MilesperSecond FROM
+		(SELECT distanceInMiles(CAST(StartingLatitude AS FLOAT), CAST(StartingLongitude AS FLOAT),
+		CAST(EndingLatitude AS FLOAT), CAST(EndingLongitude AS FLOAT)) AS dist, Duration FROM BikeShare WHERE TripRouteCategory != 'Round Trip') AS allDistances1) / COUNT(*) FROM
+		(SELECT distanceInMiles(CAST(StartingLatitude AS FLOAT), CAST(StartingLongitude AS FLOAT),
+		CAST(EndingLatitude AS FLOAT), CAST(EndingLongitude AS FLOAT)) AS dist2, Duration FROM BikeShare) AS sumAll;
 
-		SELECT CASE WHEN EXTRACT(MONTH FROM StartTime) >= 12 OR EXTRACT(MONTH FROM StartTime) <= 2 THEN 'Winter' WHEN EXTRACT(MONTH FROM StartTime) >= 3 AND EXTRACT(MONTH FROM StartTime) <= 5 THEN 'Spring' WHEN EXTRACT(MONTH FROM StartTime) >= 6 AND EXTRACT(MONTH FROM StartTime) <= 8 THEN 'Summer' ELSE 'Autumn' END Season,
-		 CASE WHEN Duration >= 0 AND Duration < 120 THEN 'Between 0 and 120 seconds'
-		 WHEN Duration >= 120 AND Duration < 300 THEN 'Between 120 and 300 seconds'
-		 WHEN Duration >= 300 AND Duration < 900 THEN 'Between 300 and 900 seconds'
-		 ELSE 'Over 900 seconds' END DurationBucket, COUNT(*) AS NumberOfRides FROM BikeShare
-		 GROUP BY Season, DurationBucket ORDER BY COUNT(*) DESC, Season DESC;
 	</div>
 </section>
 

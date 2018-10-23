@@ -18,8 +18,4 @@ _Sources for site images:_
 
 Data Set (slightly modified to remove last two columns, which were redundant for my purposes):
 
-{% raw %}
-
-<iframe src="https://onedrive.live.com/embed?cid=C5E9968C10017902&resid=C5E9968C10017902%21108&authkey=AGS3CfPqFt4CXM0" width="98" height="120" frameborder="0" scrolling="no"></iframe>
-
-{% endraw %}
+https://onedrive.live.com/embed?cid=C5E9968C10017902&resid=C5E9968C10017902%21108&authkey=AGS3CfPqFt4CXM0

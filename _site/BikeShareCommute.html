@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+    <head>
+	<title>BikeShare Analytics</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<!--[if lte IE 8]><script src="/bikeshare/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="/bikeshare/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="/bikeshare/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="/bikeshare/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+    <body>
+
+        <!-- Wrapper -->
+<div id="wrapper">
+
+<!-- Header -->
+<header id="header" class="alt style2">
+	<a href="http://localhost:4000/bikeshare/" class="logo"><strong>BikeShare Analytics</strong> <span>by Samuel Chan</span></a>
+	<nav>
+		<a href="#menu">Menu</a>
+	</nav>
+</header>
+
+<!-- Menu -->
+<nav id="menu">
+	<ul class="links">
+        
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+		    
+		        <li><a href="http://localhost:4000/bikeshare/">Home</a></li>
+	    	
+		
+		    
+		
+		
+		    
+		
+		    
+		        <li><a href="http://localhost:4000/bikeshare/AverageDistance.html">Average Distance</a></li>
+		    
+		
+		    
+		        <li><a href="http://localhost:4000/bikeshare/BikeShareCommute.html">Bike Share Commuters</a></li>
+		    
+		
+		    
+		        <li><a href="http://localhost:4000/bikeshare/MostPopularStations.html">Most Popular Stations</a></li>
+		    
+		
+		    
+		        <li><a href="http://localhost:4000/bikeshare/NetChange.html">Net Change in Bikes</a></li>
+		    
+		
+		    
+		        <li><a href="http://localhost:4000/bikeshare/SeasonsRidership.html">Seasons and Ridership</a></li>
+		    
+		
+		    
+		        <li><a href="http://localhost:4000/bikeshare/Trends.html">Interesting Trends/Metrics</a></li>
+		    
+		
+		    
+		        <li><a href="http://localhost:4000/bikeshare/TripTypePass.html">Trip Type and Pass holder</a></li>
+		    
+		
+		    
+		
+		    
+		
+		    
+		
+	</ul>
+	<ul class="actions vertical">
+	</ul>
+</nav>
+
+
+        <section id="banner" class="style2">
+            <div class="inner">
+                <span class="image">
+                    <img src="/bikeshare/assets/images/bike5.jpg" alt="">
+                </span>
+                <header class="major">
+
+                    <h1>Bike Share Commuters</h1>
+
+                </header>
+                <div class="content">
+
+                    How many riders include bike sharing as a regular part of their commute?
+
+                </div>
+            </div>
+        </section>
+
+    <!-- Main -->
+<div id="main">
+
+<!-- One -->
+<section id="two" class="spotlights">
+
+	<section>
+			<div class="content">
+			<div class="inner">
+				<header class="major">
+				<h3>Analysis</h3>
+			</header>
+			<b><u>Roughly <i>25</i> commuters use bike sharing as a regular part of their commute</u></b>
+			<br />
+			<br />
+			<h4> Assumptions/Criteria </h4>
+			<p>The number of rides originally is 132427 rides (same as the number of rows)
+					<br />1. Trip Type must be one-way. Since commuters must park their bike, thus finishing the trip at a different station when coming into work and similarly when leaving): This cuts the number of trips down to 119642 rides.
+					<br />2. Duration of the trip must be longer than 300 seconds, since normal commutes should take more than 5 minutes otherwise there is no point in spending money to bike to work. (96914 rides)
+					<br />3. Passholders must not be walk-ups, because to qualify as regular part of their commute, they must not be walk ups (65474 rides)
+					<br />4. Additionally, the start time should be between 6-9am in the morning or 5-7 at night, because those are normal arriving and leaving hours for (assuming) a 9-5 job (13129 rides)
+					<br />5. Divide this by number of days (since with the above criteria, the total number of commuter trips is isolated) (~25 rides --&gt; 25 is the number of commuters) </p>
+			</div>
+		</div>
+	</section>
+</section>
+
+<!-- Two -->
+<section id="three">
+	<div class="inner">
+		<header class="major">
+			<h2>SQL Queries Used</h2>
+		</header>
+
+		SELECT SUM(count) / (SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare))) * 0.5 FROM (SELECT StartingId, EndingId, Duration, StartTime, Endtime, COUNT(*) AS count FROM BikeShare WHERE (TripRouteCategory = 'One Way' AND Duration &gt; 300 ) AND (PassHolderType = 'Flex Pass' OR PassHolderType = 'Monthly Pass' OR PassHolderType = 'Staff Annual') GROUP BY StartingId, EndingId, Duration, StartTime, EndTime HAVING ((EXTRACT(HOUR FROM StartTime) &gt; 6 AND EXTRACT(HOUR FROM StartTime) &lt; 9) OR (EXTRACT(HOUR FROM StartTime) &gt; 17 AND EXTRACT(HOUR FROM StartTime) &lt; 19)) ORDER BY COUNT(*) DESC) AS countTable;
+
+
+	</div>
+</section>
+
+</div>
+
+
+    <!-- Contact -->
+<section id="contact">
+	<div class="inner">
+		<section>
+			<form action="https://formspree.io/samuelchaneiusgloria@gmail.com" method="POST">
+				<div class="field half first">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" />
+				</div>
+				<div class="field half">
+					<label for="email">Email</label>
+					<input type="text" name="_replyto" id="email" />
+				</div>
+				<div class="field">
+					<label for="message">Message</label>
+					<textarea name="message" id="message" rows="6"></textarea>
+				</div>
+				<ul class="actions">
+					<li><input type="submit" value="Send Message" class="special" /></li>
+					<li><input type="reset" value="Clear" /></li>
+				</ul>
+			</form>
+		</section>
+		<section class="split">
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-envelope"></span>
+					<h3>Email</h3>
+					<a href="#">samuelchaneiusgloria@gmail.com</a>
+				</div>
+			</section>
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-phone"></span>
+					<h3>Phone</h3>
+					<span>(410) 428-2378</span>
+				</div>
+			</section>
+			<section>
+				<div class="contact-method">
+					<span class="icon alt fa-home"></span>
+					<h3>Address</h3>
+					<span>
+					
+					
+					    Durham,
+					
+					
+					    NC 
+					
+					
+					    27705<br />
+					
+					
+					    United States of America
+					
+					</span>
+				</div>
+			</section>
+		</section>
+	</div>
+</section>
+
+<!-- Footer -->
+	<footer id="footer">
+		<div class="inner">
+			<ul class="icons">
+				
+				
+				
+				
+				<li><a href="https://instagram.com/thesamchanman" class="icon alt fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+				
+				
+				
+				
+				<li><a href="https://github.com/SamuelChan123/BikeShare" class="icon alt fa-gitlab" target="_blank"><span class="label">GitLab</span></a></li>
+				
+				
+				
+				
+				<li><a href="https://www.linkedin.com/in/samuelpchan" class="icon alt fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
+				
+			</ul>
+			<ul class="copyright">
+				<li>&copy; BikeShare Analytics by Samuel Chan</li>
+				<li>Design: <a href="https://html5up.net" target="_blank">HTML5 UP</a></li>
+				<li>Jekyll integration: <a href="http://andrewbanchi.ch" target="_blank">Andrew Banchich</a></li>
+
+			</ul>
+		</div>
+	</footer>
+
+</div>
+
+<!-- Scripts -->
+	<script src="http://localhost:4000/bikeshare/assets/js/jquery.min.js"></script>
+	<script src="http://localhost:4000/bikeshare/assets/js/jquery.scrolly.min.js"></script>
+	<script src="http://localhost:4000/bikeshare/assets/js/jquery.scrollex.min.js"></script>
+	<script src="http://localhost:4000/bikeshare/assets/js/skel.min.js"></script>
+	<script src="http://localhost:4000/bikeshare/assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="http://localhost:4000/bikeshare/assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="http://localhost:4000/bikeshare/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+# site settings
+title: BikeShare Analytics
+subtitle: by Samuel Chan
+email: samuelchaneiusgloria@gmail.com
+description: Jekyll Themed Site for BikeShare Analytics
+baseurl: "/bikeshare" # the subpath of your site, e.g. /blog
+url: # the base hostname & protocol for your site
+author: Samuel Chan
+street_address:
+city: Durham
+state: NC
+zip_code: 27705
+country: United States of America
+phone: (410) 428-2378
+
+# homepage tiles
+tiles-source: pages # accepts "posts" or "pages"
+tiles-count: 7
+
+# social settings
+500px_url:
+facebook_url:
+github_url:
+gitlab_url: https://github.com/SamuelChan123/BikeShare
+#googleplus_url: https://plus.google.com/u/0/+AndrewBanchich
+instagram_url: https://instagram.com/thesamchanman
+linkedin_url: https://www.linkedin.com/in/samuelpchan
+pinterest_url:
+slack_url:
+twitter_url:
+
+# build settings
+markdown: kramdown
+
+sass:
+  style: compressed

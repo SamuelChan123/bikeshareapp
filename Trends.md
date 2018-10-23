@@ -60,15 +60,23 @@ nav-menu: true
 			<h2>SQL Queries Used</h2>
 		</header>
 
-		SELECT PassholderType, COUNT(*) AS Count FROM BikeShare GROUP BY PassholderType ORDER BY COUNT(*) DESC;
+		<pre><code>
 
-		<br>
+SELECT PassholderType, COUNT(*) AS Count FROM BikeShare GROUP BY PassholderType ORDER BY COUNT(*) DESC;
 
-		SELECT PassholderType, AVG(Duration) AS Average_Time FROM BikeShare GROUP BY PassholderType ORDER BY AVG(Duration) DESC;
+</code></pre>
+<br>
+<pre><code>
 
-		<br>
+SELECT PassholderType, AVG(Duration) AS Average_Time FROM BikeShare GROUP BY PassholderType ORDER BY AVG(Duration) DESC;
 
-		SELECT Duration, COUNT(*) AS Count FROM BikeShare GROUP BY Duration ORDER BY COUNT(*) DESC;
+</code></pre>
+<br>
+<pre><code>
+
+SELECT Duration, COUNT(*) AS Count FROM BikeShare GROUP BY Duration ORDER BY COUNT(*) DESC;
+
+ 	</code></pre>
 
 	</div>
 </section>

@@ -180,30 +180,34 @@
 		<header class="major">
 			<h2>SQL Queries Used</h2>
 		</header>
-		Most Popular Starting Station IDs: <br />
-		SELECT StartingId, COUNT(*) AS counts FROM BikeShare GROUP BY StartingId ORDER BY COUNT(*) DESC;
+		Most Popular Starting Station IDs: <br /><br />
+		<pre><code>
+SELECT StartingId, COUNT(*) AS counts FROM BikeShare GROUP BY StartingId ORDER BY COUNT(*) DESC;
+		</code></pre>
+		<br />
+		Most Popular Ending Station IDs: <br /><br />
+		<pre><code>
+SELECT EndingId, COUNT(*) AS counts FROM BikeShare GROUP BY EndingId ORDER BY COUNT(*) DESC;
+		</code></pre>
+		<br />
+		Most Popular Overall Station IDs: <br /><br />
+		<pre><code>
+SELECT A.StartingId AS StationId, (A.counts1 + B.counts2) AS AllRides
+FROM
+((SELECT StartingId, COUNT(*) AS counts1
+FROM BikeShare
+GROUP BY StartingId) AS A
 
-		<br /> <br />
-		Most Popular Ending Station IDs: <br />
-		SELECT EndingId, COUNT(*) AS counts FROM BikeShare GROUP BY EndingId ORDER BY COUNT(*) DESC;
+INNER JOIN
 
-		<br /> <br />
+(SELECT EndingId, COUNT(*) AS counts2
+FROM BikeShare
+GROUP BY EndingId) AS B
 
-		Most Popular Overall Station IDs: <br />
-		SELECT A.StartingId AS StationId, (A.counts1 + B.counts2) AS AllRides
+ON A.StartingId = B.EndingId)
 
-		FROM
-		((SELECT StartingId, COUNT(*)
-		AS counts1 FROM BikeShare GROUP BY StartingId) AS A
-
-		INNER JOIN
-
-		(SELECT EndingId, COUNT(*)
-		AS counts2 FROM BikeShare GROUP BY EndingId) AS B
-
-		ON A.StartingId = B.EndingId)
-
-		ORDER BY AllRides DESC;
+ORDER BY AllRides DESC;
+		</code></pre>
 
 	</div>
 </section>

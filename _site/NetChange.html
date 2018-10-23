@@ -149,46 +149,41 @@
 			<h2>SQL Queries Used</h2>
 		</header>
 
-		(SELECT A.StartingId AS StationId, (B.counts2 - A.counts1) AS AllRides
+		<pre><code>
 
-		FROM
+(SELECT A.StartingId AS StationId, (B.counts2 - A.counts1) AS AllRides
+FROM
 
-		((SELECT StartingId, COUNT(*)
-		AS counts1 FROM BikeShare GROUP BY StartingId) AS A
+((SELECT StartingId, COUNT(*)
+AS counts1 FROM BikeShare GROUP BY StartingId) AS A
+INNER JOIN
+(SELECT EndingId, COUNT(*)
+AS counts2 FROM BikeShare GROUP BY EndingId) AS B
 
-		INNER JOIN
+ON A.StartingId = B.EndingId)
+ORDER BY AllRides DESC)
+</code></pre>
+<br />
+<pre><code>
 
-		(SELECT EndingId, COUNT(*)
-		AS counts2 FROM BikeShare GROUP BY EndingId) AS B
+SELECT SUM(NetGainofBikesPerDay) FROM (SELECT DISTINCT s.StationId, s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) AS NetGainofBikesPerDay
 
-		ON A.StartingId = B.EndingId)
+FROM
 
-		ORDER BY AllRides DESC)
+(SELECT A.StartingId AS StationId, (B.counts2 - A.counts1) AS AllRides
 
+FROM
 
-		<br />
-		<br />
+((SELECT StartingId, COUNT(*)
+AS counts1 FROM BikeShare GROUP BY StartingId) AS A
+INNER JOIN
+(SELECT EndingId, COUNT(*)
+AS counts2 FROM BikeShare GROUP BY EndingId) AS B
+ON A.StartingId = B.EndingId)
 
-		SELECT SUM(NetGainofBikesPerDay) FROM (SELECT DISTINCT s.StationId, s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) AS NetGainofBikesPerDay FROM
+ORDER BY AllRides DESC) AS s ORDER BY s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) DESC) AS sumofnet
 
-	(SELECT A.StartingId AS StationId, (B.counts2 - A.counts1) AS AllRides
-
-	FROM
-
-	((SELECT StartingId, COUNT(*)
-	AS counts1 FROM BikeShare GROUP BY StartingId) AS A
-
-	INNER JOIN
-
-	(SELECT EndingId, COUNT(*)
-	AS counts2 FROM BikeShare GROUP BY EndingId) AS B
-
-	ON A.StartingId = B.EndingId)
-
-	ORDER BY AllRides DESC) AS s ORDER BY s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) DESC) AS sumofnet
-
-
-
+	</code></pre>
 
 	</div>
 </section>

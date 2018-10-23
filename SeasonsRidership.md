@@ -63,18 +63,48 @@ nav-menu: true
 			<h2>SQL Queries Used</h2>
 		</header>
 
-		SELECT CASE WHEN EXTRACT(MONTH FROM StartTime) >= 12 OR EXTRACT(MONTH FROM StartTime) <= 2 THEN 'Winter' WHEN EXTRACT(MONTH FROM StartTime) >= 3 AND EXTRACT(MONTH FROM StartTime) <= 5 THEN 'Spring' WHEN EXTRACT(MONTH FROM StartTime) >= 6 AND EXTRACT(MONTH FROM StartTime) <= 8 THEN 'Summer' ELSE 'Autumn' END Season, PassholderType, COUNT(*) AS NumberOfRides FROM BikeShare GROUP BY Season, PassholderType ORDER BY COUNT(*)  DESC, Season DESC;
+<pre><code>
+SELECT
+	CASE
+		WHEN EXTRACT(MONTH FROM StartTime) >= 12 OR EXTRACT(MONTH FROM StartTime) <= 2
+			THEN 'Winter'
+		WHEN EXTRACT(MONTH FROM StartTime) >= 3 AND EXTRACT(MONTH FROM StartTime) <= 5
+			THEN 'Spring'
+		WHEN EXTRACT(MONTH FROM StartTime) >= 6 AND EXTRACT(MONTH FROM StartTime) <= 8
+			THEN 'Summer'
+		ELSE 'Autumn'
+	END Season,
+	PassholderType, COUNT(*) AS NumberOfRides
+FROM BikeShare
+GROUP BY Season, PassholderType
+ORDER BY COUNT(*)  DESC, Season DESC;
 
-		<br>
-		<br>
+</code></pre>
+<br>
+<pre><code>
+SELECT
+	CASE
+		WHEN EXTRACT(MONTH FROM StartTime) >= 12 OR EXTRACT(MONTH FROM StartTime) <= 2
+			THEN 'Winter'
+		WHEN EXTRACT(MONTH FROM StartTime) >= 3 AND EXTRACT(MONTH FROM StartTime) <= 5
+			THEN 'Spring'
+		WHEN EXTRACT(MONTH FROM StartTime) >= 6 AND EXTRACT(MONTH FROM StartTime) <= 8
+			THEN 'Summer'
+		ELSE 'Autumn'
+	END Season,
+	CASE
+		WHEN Duration >= 0 AND Duration < 120
+			THEN 'Between 0 and 120 seconds'
+		WHEN Duration >= 120 AND Duration < 300
+			THEN 'Between 120 and 300 seconds'
+		WHEN Duration >= 300 AND Duration < 900
+			THEN 'Between 300 and 900 seconds'
+		ELSE 'Over 900 seconds' END DurationBucket, COUNT(*) AS NumberOfRides
+FROM BikeShare
+GROUP BY Season, DurationBucket
+ORDER BY COUNT(*) DESC, Season DESC;
 
-		SELECT CASE WHEN EXTRACT(MONTH FROM StartTime) >= 12 OR EXTRACT(MONTH FROM StartTime) <= 2 THEN 'Winter' WHEN EXTRACT(MONTH FROM StartTime) >= 3 AND EXTRACT(MONTH FROM StartTime) <= 5 THEN 'Spring' WHEN EXTRACT(MONTH FROM StartTime) >= 6 AND EXTRACT(MONTH FROM StartTime) <= 8 THEN 'Summer' ELSE 'Autumn' END Season,
-		 CASE WHEN Duration >= 0 AND Duration < 120 THEN 'Between 0 and 120 seconds'
-		 WHEN Duration >= 120 AND Duration < 300 THEN 'Between 120 and 300 seconds'
-		 WHEN Duration >= 300 AND Duration < 900 THEN 'Between 300 and 900 seconds'
-		 ELSE 'Over 900 seconds' END DurationBucket, COUNT(*) AS NumberOfRides FROM BikeShare
-		 GROUP BY Season, DurationBucket ORDER BY COUNT(*) DESC, Season DESC;
-
+ </code></pre>
 
 	</div>
 </section>

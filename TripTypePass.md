@@ -46,8 +46,9 @@ nav-menu: true
 		<header class="major">
 			<h2>SQL Query Used</h2>
 		</header>
-
-		SELECT Duration, COUNT(*) AS Count FROM BikeShare GROUP BY Duration ORDER BY COUNT(*) DESC;
+		<pre><code>
+SELECT Duration, COUNT(*) AS Count FROM BikeShare GROUP BY Duration ORDER BY COUNT(*) DESC;
+		</code></pre>
 
 	</div>
 </section>

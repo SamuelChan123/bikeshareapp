@@ -149,25 +149,37 @@
 <section id="three">
 	<div class="inner">
 		<header class="major">
-			<h2>SQL Query Used</h2>
+			<h2>SQL Queries Used</h2>
 		</header>
 
-		CREATE OR REPLACE FUNCTION distanceInMiles(lat1 FLOAT, lon1 FLOAT, lat2 FLOAT, lon2 FLOAT) RETURNS FLOAT AS $$
-		DECLARE
-			 x float = 69.1 * (lat2 - lat1);
-			 y float = 69.1 * (lon2 - lon1) * cos(lat1 / 57.3);
-		BEGIN
-			 RETURN sqrt(x * x + y * y);
-		END
-		$$ LANGUAGE plpgsql;
-		<br />
-		<br />
-		SELECT SUM(Duration) * (SELECT SUM(dist)/SUM(Duration) AS MilesperSecond FROM
-		(SELECT distanceInMiles(CAST(StartingLatitude AS FLOAT), CAST(StartingLongitude AS FLOAT),
-		CAST(EndingLatitude AS FLOAT), CAST(EndingLongitude AS FLOAT)) AS dist, Duration FROM BikeShare WHERE TripRouteCategory != 'Round Trip') AS allDistances1) / COUNT(*) FROM
-		(SELECT distanceInMiles(CAST(StartingLatitude AS FLOAT), CAST(StartingLongitude AS FLOAT),
-		CAST(EndingLatitude AS FLOAT), CAST(EndingLongitude AS FLOAT)) AS dist2, Duration FROM BikeShare) AS sumAll;
+<pre><code>
+CREATE OR REPLACE FUNCTION distanceInMiles(lat1 FLOAT, lon1 FLOAT, lat2 FLOAT, lon2 FLOAT) RETURNS FLOAT AS $$
+DECLARE
+	 x float = 69.1 * (lat2 - lat1);
+	 y float = 69.1 * (lon2 - lon1) * cos(lat1 / 57.3);
+BEGIN
+	 RETURN sqrt(x * x + y * y);
+END
+$$ LANGUAGE plpgsql;
 
+</code></pre>
+<br />
+<pre><code>
+
+SELECT SUM(Duration) *
+
+(SELECT SUM(dist)/SUM(Duration) AS MilesperSecond
+FROM
+(SELECT distanceInMiles(CAST(StartingLatitude AS FLOAT), CAST(StartingLongitude AS FLOAT),
+CAST(EndingLatitude AS FLOAT), CAST(EndingLongitude AS FLOAT)) AS dist, Duration
+FROM BikeShare WHERE TripRouteCategory != 'Round Trip') AS allDistances1)
+
+/ COUNT(*) FROM
+(SELECT distanceInMiles(CAST(StartingLatitude AS FLOAT), CAST(StartingLongitude AS FLOAT),
+CAST(EndingLatitude AS FLOAT), CAST(EndingLongitude AS FLOAT)) AS dist2, Duration FROM BikeShare)
+AS sumAll;
+
+		</code></pre>
 
 	</div>
 </section>

@@ -20,11 +20,8 @@ _Sources for site images:_
 * https://ase.org/sites/ase.org/files/styles/featured_blog/public/bike_share2_0_website.png?itok=lL_t-9r1
 * https://whyy.org/wp-content/uploads/2017/12/bigstock-210609340-768x513.jpg
 
-Data Set (slightly modified to remove last two columns, which were redundant for my purposes):
+_Data Set (slightly modified to remove last two columns, which were redundant for my purposes):_
+* https://onedrive.live.com/embed?cid=C5E9968C10017902&resid=C5E9968C10017902%21108&authkey=AGS3CfPqFt4CXM0
 
-https://onedrive.live.com/embed?cid=C5E9968C10017902&resid=C5E9968C10017902%21108&authkey=AGS3CfPqFt4CXM0
-
-* Credits
-Theme: Forty
-Design: HTML5 UP
-Jekyll integration: Andrew Banchich
+_Credits_
+* Theme: Forty, Design: HTML5 UP, Jekyll integration: Andrew Banchich

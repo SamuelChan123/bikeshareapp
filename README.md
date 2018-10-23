@@ -19,3 +19,8 @@ _Sources for site images:_
 Data Set (slightly modified to remove last two columns, which were redundant for my purposes):
 
 https://onedrive.live.com/embed?cid=C5E9968C10017902&resid=C5E9968C10017902%21108&authkey=AGS3CfPqFt4CXM0
+
+* Credits
+Theme: Forty
+Design: HTML5 UP
+Jekyll integration: Andrew Banchich

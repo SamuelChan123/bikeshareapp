@@ -1,0 +1,1 @@
+\COPY BikeShare(TripId, Duration,StartTime,EndTime,StartingId,StartingLatitude,StartingLongitude,EndingId,EndingLatitude,EndingLongitude,BikeId,PlanDuration,TripRouteCategory,PassholderType) FROM 'data/bikeshare.csv' WITH DELIMITER ',' NULL '' CSV

@@ -1,0 +1,15 @@
+CREATE TABLE BikeShare(
+TripId FLOAT(48) NOT NULL PRIMARY KEY,
+Duration FLOAT(48) NOT NULL,
+StartTime timestamp NOT NULL,
+EndTime timestamp NOT NULL,
+StartingId VARCHAR(50),
+StartingLatitude VARCHAR(50),
+StartingLongitude VARCHAR(50),
+EndingId VARCHAR(50),
+EndingLatitude FLOAT(48),
+EndingLongitude FLOAT(48),
+BikeId FLOAT(48),
+PlanDuration FLOAT(48),
+TripRouteCategory VARCHAR(50),
+PassholderType VARCHAR(50));

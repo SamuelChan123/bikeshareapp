@@ -20,18 +20,18 @@ nav-menu: true
 
 					<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=1498518844&amp;format=interactive"></iframe>
 
-					<br>
-						<p> Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus. </p>
+					<br><br>
+						<p> Using the SQL query provided below, I computed the top 10 most popular starting station IDs and gave the number of rides in the interactive graphic above. </p>
 
 					<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=1801250696&amp;format=interactive"></iframe>
 
-					<br>
-						<p> Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus. </p>
+					<br><br>
+						<p> Using the SQL query provided below, I computed the top 10 most popular <b>ending</b> station IDs and gave the number of rides in the interactive graphic above. </p>
 
 					<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=1975973841&amp;format=interactive"></iframe>
 
-					<br>
-						<p> Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus. </p>
+					<br><br>
+						<p> Using the SQL query provided below, I computed the top 10 most popular station IDs (both starting and ending stations) and gave the number of rides in the interactive graphic above. This is probably the most complete graphic as we probably want stations that have the most overall traffic (both departing and re-entering the station), but I provided the other two graphs for context. </p>
 
 			</div>
 		</div>
@@ -48,13 +48,9 @@ nav-menu: true
 					<header class="major">
 					<h3>Analysis</h3>
 				</header>
-				<br><br>
 				<h4> Assumptions/Criteria </h4>
-				<p> 1. Assume the average miles per second for each user is roughly the same (hence, find this by dividing sum of distances in One way trips by sum of duration)
-
-				<br>2. Hence, since d = rt, multiply this miles per second average by the total time spent in all trips to get the total distance
-
-				<br>3. Divide the total distance by the total number of trips to get the average distance travelled per trip.</p>
+				<p> 1. I included both round trips and one way trips, since even if people return to the same station, they still count as having frequented that station.</p>
+				<p>2. The most popular overall stations (third graphic) were computed by grouping the stations together by ID and then adding the start and end counts. I thought it was important to keep these three metrics separate as it might be useful to see if some stations were more popular to dock at as opposed to start from (for example, touristy sites might be more prone to people arriving, whereas the opposite might be true at more random, roadside locations) </p>
 				</div>
 			</div>
 		</section>

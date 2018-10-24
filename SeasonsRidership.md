@@ -22,12 +22,12 @@ nav-menu: true
 			</header>
 
 			<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=271665241&amp;format=interactive"></iframe>				
-			<br>
-			<p> Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus. </p>
+			<br><br>
+			<p> Here, I graphed the combination of season and pass type to find the number of rides associated with each pair, displayed above in the interactive graph. As shown, Autumn/Fall is clearly the season with the most rides, followed by Summer, Winter, and Spring. Monthly pass riders tend to be much more common than walk-ups, flex passes, or staff annuals. The same trend of Autumn and summer being the seasons with the highest frequency of rides is consistent regardless of pass type. Similarly, regardless of season, monthly passes are the most frequent, followed by walk-ups, flex passes, and staff annuals, in that order.</p>
 
 			<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=29820259&amp;format=interactive"></iframe>
-			<br>
-			<p> Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus. </p>
+			<br><br>
+			<p> Here, I graphed the combination of season and duration of ride to find the number of rides associated with each pair, displayed above in the interactive graph. As shown, Autumn/Fall is clearly the season with the most rides, followed by Summer, Winter, and Spring. 300-900s (5-15 minutes) rides tend to be the most common by a significant margin, followed by 900+ seconds (> 15 minutes), 120-300s, and 0-120s. The same trend of Autumn and summer being the seasons with the highest frequency of rides is consistent regardless of pass type. Additionally, regardless of season, 300-900s still tends to be highest frequency of ride.</p>
 
 			</div>
 		</div>
@@ -43,14 +43,16 @@ nav-menu: true
 				<header class="major">
 				<h3>Analysis</h3>
 			</header>
-			<b><u>The average distance travelled is estimated to be <i>3.6923</i> miles</u></b>
+			<b>Based on the graph, the most common rider would be a monthly pass holder riding between 5 and 15 minutes in the Autumn.</b>
 			<br><br>
-			<h4> Assumptions/Criteria </h4>
-			<p> 1. Assume the average miles per second for each user is roughly the same (hence, find this by dividing sum of distances in One way trips by sum of duration)
+			<h4> Explanation: </h4>
+			<br><p> 1. Seasons. Autumn is logically the most common season for riders to ride in, due to mild temperatures, beautiful weather, generally rain-free days, and medium to long day light. Summer is similarly a good time to ride a bike (and hence bike share), due to the warm temperatures and generally less work (leading to more travel time or leisure activities that require transportation).
 
-			<br>2. Hence, since d = rt, multiply this miles per second average by the total time spent in all trips to get the total distance
+			<br><br>2. Passholder Type. Due to the excellent climate of the LA area, autumn is generally a great time to ride a bike and hence bike share, leading to a greater influx of monthly passes acquired (and thus rides ridden with monthly passes) than in any other season. Walk-ups are more common than monthly passes (relative to other months) in the spring because many riders generally stop their renewal of monthly passes in the winter, not renewing it until there is a wider window of leisure time/good weather (summer season).
 
-			<br>3. Divide the total distance by the total number of trips to get the average distance travelled per trip.</p>
+			<br><br>3. Good biking temperatures in the autumn, summer, and some of spring leads to an increase in the number of rides for a given duration in those more temperate seasons.
+
+			</p>
 			</div>
 		</div>
 	</section>
@@ -62,7 +64,8 @@ nav-menu: true
 		<header class="major">
 			<h2>SQL Queries Used</h2>
 		</header>
-
+Number of Rides based on Season and Pass:
+<br><br>
 <pre><code>
 SELECT
 	CASE
@@ -80,7 +83,8 @@ GROUP BY Season, PassholderType
 ORDER BY COUNT(*)  DESC, Season DESC;
 
 </code></pre>
-<br>
+Number of Rides for each Season and Duration:
+<br><br>
 <pre><code>
 SELECT
 	CASE

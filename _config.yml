@@ -1,7 +1,7 @@
 # site settings
 title: BikeShare Analytics
 subtitle: by Samuel Chan
-email: samuelchaneiusgloria@gmail.com
+email: samuelchaneiusgloria@gmail.com, samuel.chan@duke.edu
 description: To Analyze and Visualize Bike Share Data from the City of Los Angeles
 baseurl: "/bikeshareapp" # the subpath of your site, e.g. /blog
 url: # the base hostname & protocol for your site
@@ -20,8 +20,8 @@ tiles-count: 7
 # social settings
 500px_url:
 facebook_url:
-github_url:
-gitlab_url: https://github.com/SamuelChan123/BikeShare
+github_url: https://github.com/SamuelChan123/BikeShare
+gitlab_url:
 #googleplus_url: https://plus.google.com/u/0/+AndrewBanchich
 instagram_url:
 linkedin_url: https://www.linkedin.com/in/samuelpchan

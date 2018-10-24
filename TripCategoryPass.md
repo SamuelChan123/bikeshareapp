@@ -1,5 +1,5 @@
 ---
-title: Trip Route Category and Pass Holders
+title: Trip Category and Pass Holders
 layout: landing
 description: 'What is the breakdown of Trip Route Category-Passholder type combinations? What might make a particular combination more popular?'
 image: assets/images/bike3.jpg
@@ -46,6 +46,8 @@ nav-menu: true
 		<header class="major">
 			<h2>SQL Query Used</h2>
 		</header>
+Number of Rides for Pass Holder Type and Trip Category:
+<br><br>
 		<pre><code>
 SELECT Duration, COUNT(*) AS Count FROM BikeShare GROUP BY Duration ORDER BY COUNT(*) DESC;
 		</code></pre>

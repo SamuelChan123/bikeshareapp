@@ -64,24 +64,25 @@ nav-menu: true
 		<header class="major">
 			<h2>SQL Queries Used</h2>
 		</header>
-		Number of Passes for Pass Holder Type <br><br>
+		Number of Passes for Pass Holder Type: <br><br>
 		<pre><code>
 SELECT PassholderType, COUNT(*) AS Count FROM BikeShare GROUP BY PassholderType ORDER BY COUNT(*) DESC;
+
 </code></pre>
-Average Ride Time for Pass Holder Type
+Average Ride Time for Pass Holder Type:
 <br><br>
 <pre><code>
 SELECT PassholderType, AVG(Duration) AS Average_Time FROM BikeShare GROUP BY PassholderType ORDER BY AVG(Duration) DESC;
 
 </code></pre>
- Number of Rides for Duration of Ride <br><br>
+Number of Rides for Duration of Ride: <br><br>
 <pre><code>
 SELECT Duration, COUNT(*) AS Count FROM BikeShare GROUP BY Duration ORDER BY COUNT(*) DESC;
  	</code></pre>
-	Calculating the Mean and Median Ride Duration <br><br>
+Calculating the Mean and Median Ride Duration: <br><br>
  <pre><code>
-
 SELECT AVG(Duration) FROM BikeShare;
+
 
 
  CREATE FUNCTION _final_median(anyarray) RETURNS float8 AS $$

@@ -36,5 +36,5 @@ _Sources for site images:_
 
 ## Thank You to CapitalOne for This Challenge!
 
-[](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Capital_One_logo.svg/1200px-Capital_One_logo.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Capital_One_logo.svg/1200px-Capital_One_logo.svg.png)
 

@@ -49,7 +49,7 @@ nav-menu: true
 Number of Rides for Pass Holder Type and Trip Category:
 <br><br>
 		<pre><code>
-SELECT Duration, COUNT(*) AS Count FROM BikeShare GROUP BY Duration ORDER BY COUNT(*) DESC;
+SELECT PassholderType, TripRouteCategory, COUNT(*) AS Count FROM BikeShare GROUP BY PassholderType, TripRouteCategory ORDER BY COUNT(*) DESC;
 		</code></pre>
 
 	</div>

@@ -39,17 +39,17 @@ _Sources for site images:_
 
 ## Screenshots:
 
-![](assets/images/LandingPage)
+![](assets/images/LandingPage.png)
 
-![](assets/images/AllTiles)
+![](assets/images/AllTiles.png)
 
-![](assets/images/ContactForm)
+![](assets/images/ContactForm.png)
 
-![](assets/images/WithinAPage)
+![](assets/images/WithinAPage.png)
 
-![](assets/images/GitJekyllCommandLine)
+![](assets/images/GitJekyllCommandLine.png)
 
-![](assets/images/VMPostgresDB)
+![](assets/images/VMPostgresDB.png)
 
 
 ## Thank You to CapitalOne for This Challenge!

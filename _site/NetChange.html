@@ -132,16 +132,127 @@
 				<header class="major">
 				<h3>Analysis</h3>
 			</header>
-			<b>Roughly 0.288389513108582 bikes lost per day overall from all stations, or 0.00430432109 bikes lost per day per station.</b>
+			<b>Roughly a net of 0.288389513108582 bikes lost per day overall from all stations combined, or 0.00430432109 bikes lost per day per station.</b>
 			<br />
 			<br />
 
 			<p>1. This translates to about a bike lost from a bike share station in LA about once every 4 days </p>
 			<p>2. This does make sense, because an increasingly hard to solve issue for bike sharing worldwide is that many users do not remember to park bikes back at their stations. Or, bikes could be lost, broken, and otherwise misplaced. </p>
+<p>
+			3. The following are two tables and two graphs corresponding to those tables, the first table/graph with the top 10 stations with net inflow of bikes per day, and the second table/graph with the net outflow of bikes per day
+
+</p>
+			<p>4. On average, then, transporting bikes from the station with the greatest net inflow of bikes daily to the station with the greatest net outflow of bikes per day, and from the second greatest net inflow to the second greatest net outflow, etc. all the way to the median would be the most effective way to preserve a net change of 0 bikes over the course of a day (and hence, year) and to match travel patterns.  
+			<br /></p>
+
+			<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=126611753&amp;format=interactive"></iframe>
+			<br /><br />
+
+			<table style="width:100%">
+  <tr>
+    <th><u>Station ID</u></th>
+    <th><u>Net Change of Bikes Into the Station</u></th>
+  </tr>
+  <tr>
+    <td>3005</td>
+    <td>5.165</td>
+  </tr>
+  <tr>
+    <td>3042</td>
+    <td>4.787</td>
+  </tr>
+	<tr>
+		<td>3000</td>
+		<td>3.468</td>
+	</tr>
+	<tr>
+		<td>3031</td>
+		<td>3.326</td>
+	</tr>
+	<tr>
+		<td>3014</td>
+		<td>3.049</td>
+	</tr>
+	<tr>
+		<td>3063</td>
+		<td>3.049</td>
+	</tr>
+	<tr>
+		<td>3082</td>
+		<td>2.978</td>
+	</tr>
+	<tr>
+		<td>3023</td>
+		<td>1.923</td>
+	</tr>
+	<tr>
+		<td>3022</td>
+		<td>1.663</td>
+	</tr>
+	<tr>
+		<td>3032</td>
+		<td>1.169</td>
+	</tr>
+	</table>
+
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=794869951&amp;format=interactive"></iframe>
+
+	<br /><br />
+
+	<table style="width:100%">
+	<tr>
+    <th><br /><u>Station ID</u></th>
+    <th><br /><u>Net Change of Bikes Into the Station</u></th>
+  </tr>
+	<tr>
+		<td>3029</td>
+		<td>-1.884</td>
+	</tr>
+	<tr>
+		<td>3028</td>
+		<td>-2.464</td>
+	</tr>
+	<tr>
+		<td>3049</td>
+		<td>-2.491</td>
+	</tr>
+	<tr>
+		<td>3027</td>
+		<td>-2.607</td>
+	</tr>
+	<tr>
+		<td>3052</td>
+		<td>-2.831</td>
+	</tr>
+	<tr>
+		<td>3007</td>
+		<td>-2.966</td>
+	</tr>
+	<tr>
+		<td>3055</td>
+		<td>-3.034</td>
+	</tr>
+	<tr>
+		<td>3030</td>
+		<td>-3.127</td>
+	</tr>
+	<tr>
+		<td>3024</td>
+		<td>-3.318</td>
+	</tr>
+	<tr>
+		<td>3068</td>
+		<td>-8.498</td>
+	</tr>
+</table>
+
 			</div>
 		</div>
 	</section>
 </section>
+
+
 
 <!-- Two -->
 <section id="three">
@@ -149,10 +260,18 @@
 		<header class="major">
 			<h2>SQL Queries Used</h2>
 		</header>
+Net Gain or Loss of Bikes from Each Station:
+<br /><br />
+<pre><code>
+SELECT DISTINCT s.StationId,
+s.AllRides/
+((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare))))
+AS NetGainofBikesPerDay
 
-		<pre><code>
+FROM
 
 (SELECT A.StartingId AS StationId, (B.counts2 - A.counts1) AS AllRides
+
 FROM
 
 ((SELECT StartingId, COUNT(*)
@@ -160,13 +279,15 @@ AS counts1 FROM BikeShare GROUP BY StartingId) AS A
 INNER JOIN
 (SELECT EndingId, COUNT(*)
 AS counts2 FROM BikeShare GROUP BY EndingId) AS B
-
 ON A.StartingId = B.EndingId)
-ORDER BY AllRides DESC)
-</code></pre>
-<br />
-<pre><code>
 
+ORDER BY AllRides DESC)
+AS s
+
+ORDER BY s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) DESC
+</code></pre>
+ Total Net Gain of Bikes Per Day Across All Stations:<br /><br />
+<pre><code>
 SELECT SUM(NetGainofBikesPerDay) FROM (SELECT DISTINCT s.StationId, s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) AS NetGainofBikesPerDay
 
 FROM
@@ -183,7 +304,6 @@ AS counts2 FROM BikeShare GROUP BY EndingId) AS B
 ON A.StartingId = B.EndingId)
 
 ORDER BY AllRides DESC) AS s ORDER BY s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) DESC) AS sumofnet
-
 	</code></pre>
 
 	</div>

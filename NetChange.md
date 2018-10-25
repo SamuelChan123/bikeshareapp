@@ -29,7 +29,7 @@ nav-menu: true
 			3. The following are two tables and two graphs corresponding to those tables, the first table/graph with the top 10 stations with net inflow of bikes per day, and the second table/graph with the net outflow of bikes per day
 
 </p>
-			<p>4. On average, then, transporting bikes from the station with the greatest net inflow of bikes daily to the station with the greatest net outflow of bikes per day, and from the second greatest net inflow to the second greatest net outflow, etc. all the way to the median would be the most effective way to preserve a net change of 0 bikes over the course of a day (and hence, year) and to match travel patterns.  
+			<p>4. On average, then, transporting bikes from the station with the greatest net inflow of bikes daily to the station with the greatest net outflow of bikes per day, and from the second greatest net inflow to the second greatest net outflow, etc. all the way to the median (net gain of 0.033 bikes) would be the most effective way to preserve a net change of 0 bikes over the course of a day (and hence, year) and to match travel patterns.  
 			<br></p>
 
 			<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=126611753&amp;format=interactive"></iframe>
@@ -172,6 +172,7 @@ ORDER BY AllRides DESC)
 AS s
 
 ORDER BY s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) DESC
+
 </code></pre>
  Total Net Gain of Bikes Per Day Across All Stations:<br><br>
 <pre><code>
@@ -192,7 +193,66 @@ ON A.StartingId = B.EndingId)
 
 ORDER BY AllRides DESC) AS s ORDER BY s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) DESC) AS sumofnet
 	</code></pre>
+Calculating the Median Net Gain of Bikes Per Day:<br><br>
 
+<pre><code>
+CREATE FUNCTION _final_median(anyarray) RETURNS float8 AS $$
+ WITH q AS
+ (
+		SELECT val
+		FROM unnest($1) val
+		WHERE VAL IS NOT NULL
+		ORDER BY 1
+ ),
+ cnt AS
+ (
+	 SELECT COUNT(*) AS c FROM q
+ )
+ SELECT AVG(val)::float8
+ FROM
+ (
+	 SELECT val FROM q
+	 LIMIT  2 - MOD((SELECT c FROM cnt), 2)
+	 OFFSET GREATEST(CEIL((SELECT c FROM cnt) / 2.0) - 1,0)  
+ ) q2;
+$$ LANGUAGE SQL IMMUTABLE;
+
+</code></pre>
+<pre><code>
+CREATE AGGREGATE median(anyelement) (
+ SFUNC=array_append,
+ STYPE=anyarray,
+ FINALFUNC=_final_median,
+ INITCOND='{}'
+);
+
+</code></pre>
+<pre><code>
+SELECT median(NetGainofBikesPerDay) FROM
+
+(SELECT DISTINCT s.AllRides/
+((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare))))
+AS NetGainofBikesPerDay
+
+FROM
+
+(SELECT A.StartingId AS StationId, (B.counts2 - A.counts1) AS AllRides
+
+FROM
+
+((SELECT StartingId, COUNT(*)
+AS counts1 FROM BikeShare GROUP BY StartingId) AS A
+INNER JOIN
+(SELECT EndingId, COUNT(*)
+AS counts2 FROM BikeShare GROUP BY EndingId) AS B
+ON A.StartingId = B.EndingId)
+
+ORDER BY AllRides DESC)
+AS s
+
+ORDER BY s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) DESC) AS allNet
+
+</code></pre>
 	</div>
 </section>
 </div>

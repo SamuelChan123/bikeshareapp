@@ -18,15 +18,20 @@ nav-menu: true
 				<header class="major">
 				<h3>Analysis</h3>
 			</header>
-			<b><u>Roughly <i>25</i> commuters use bike sharing as a regular part of their commute</u></b>
+			<b><u>The average distance travelled is estimated to be <i>3.6923</i> miles</u></b>
 			<br>
 			<br>
 			<h4> Assumptions/Criteria </h4>
-			<p> 1. Assume the average miles per second for each user is roughly the same (hence, find this by dividing sum of distances in One way trips by sum of duration)
+			<p> 1. Assume the average miles per second for each user is roughly the same. We use one-way trips to calculate miles per second because we assume that riders in one-way trips will take roughly a straight line between the start and end stations, so for a trip, finding the distance between the two stations and dividing by the duration of the trip will give the average miles per second for that trip. We sum all of these up by taking the average distance between stations (for one-way trips) and dividing by the total duration.
 
-			<br>2. Hence, since d = rt, multiply this miles per second average by the total time spent in all trips to get the total distance
+			<br><br>2. Hence, since d = rt, multiply this miles per second average by the total time spent in all trips to get the total distance. This includes both one-way trips and round-trips. We assume people in round-trips bike at roughly the same speed as one-way trip riders.
 
-			<br>3. Divide the total distance by the total number of trips to get the average distance travelled per trip.</p>
+			<br><br>3. Divide the total distance by the total number of trips (number of rows in the data set) to get the average distance travelled per trip.
+
+			<br><br>
+
+
+			</p>
 			</div>
 		</div>
 	</section>
@@ -38,7 +43,7 @@ nav-menu: true
 		<header class="major">
 			<h2>SQL Queries Used</h2>
 		</header>
-
+Function to Calculate Distance between Two Geographical Points:<br><br>
 <pre><code>
 CREATE OR REPLACE FUNCTION distanceInMiles(lat1 FLOAT, lon1 FLOAT, lat2 FLOAT, lon2 FLOAT) RETURNS FLOAT AS $$
 DECLARE
@@ -48,11 +53,9 @@ BEGIN
 	 RETURN sqrt(x * x + y * y);
 END
 $$ LANGUAGE plpgsql;
-
 </code></pre>
-<br>
+Calculating Average Distance Based on Criteria Above:<br><br>
 <pre><code>
-
 SELECT SUM(Duration) *
 
 (SELECT SUM(dist)/SUM(Duration) AS MilesperSecond
@@ -65,8 +68,7 @@ FROM BikeShare WHERE TripRouteCategory != 'Round Trip') AS allDistances1)
 (SELECT distanceInMiles(CAST(StartingLatitude AS FLOAT), CAST(StartingLongitude AS FLOAT),
 CAST(EndingLatitude AS FLOAT), CAST(EndingLongitude AS FLOAT)) AS dist2, Duration FROM BikeShare)
 AS sumAll;
-
-		</code></pre>
+</code></pre>
 
 	</div>
 </section>

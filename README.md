@@ -24,7 +24,7 @@ _Data Set (slightly modified to remove last two columns, which were redundant fo
 * [Data Set in OneDrive](https://onedrive.live.com/embed?cid=C5E9968C10017902&resid=C5E9968C10017902%21108&authkey=AGS3CfPqFt4CXM0)
 
 _Credits_:
-* Theme: Forty, Design: HTML5 UP, Jekyll integration: Andrew Banchich
+* Theme: Forty, Design: HTML5 UP, Jekyll integration: [Andrew Banchich](http://andrewbanchi.ch/)
 
 _Sources for site images:_
 * [Bike Image 1](https://images6.alphacoders.com/549/549198.jpg)

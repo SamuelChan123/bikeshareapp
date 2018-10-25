@@ -6,7 +6,9 @@
 
 * Ran SQL queries against a PostgreSQL 10 SQL database constructed almost exactly (with the exclusion of the last two columns) as the data set provided
 
-* Postgres was installed on a Ubuntu 14.04 Virtual Machine using vagrant and VirtualBox
+* Postgres Version: psql (PostgreSQL) 10.5 (Ubuntu 10.5-2.pgdg16.04+1)
+
+* Postgres was installed on a Ubuntu 18.04.1 LTS (Bionic Beaver) Virtual Machine with Vagrant and VirtualBox
 
 * Project was tested via the Jekyll executable in the command line for development locally
 

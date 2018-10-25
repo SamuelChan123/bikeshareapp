@@ -6,15 +6,17 @@
 
 * Ran SQL queries against a PostgreSQL 10 SQL database constructed almost exactly (with the exclusion of the last two columns) as the data set provided
 
-* Postgres was installed on a Ubuntu 14.04 Virtual Machine using vagrant and VirtualBox
+* Postgres Version: psql (PostgreSQL) 10.5 (Ubuntu 10.5-2.pgdg16.04+1)
+
+* Postgres was installed on a Ubuntu 18.04.1 LTS (Bionic Beaver) Virtual Machine with Vagrant and VirtualBox
 
 * Project was tested via the Jekyll executable in the command line for development locally
 
-## Structure: 
+## Structure:
 * _In the SQL folder, create.sql gives the schema for the SQL database, load.sql is run by the setup.sh script (called with ./setup.sh) to load the created db with data from the .csv file provided._
 
 
-## Other Details: 
+## Other Details:
 
 _Graphs and BikeShare Data, Raw Form:_
 
@@ -35,8 +37,21 @@ _Sources for site images:_
 * [Bike Image 6](https://ase.org/sites/ase.org/files/styles/featured_blog/public/bike_share2_0_website.png?itok=lL_t-9r1)
 * [Bike Image 7](https://whyy.org/wp-content/uploads/2017/12/bigstock-210609340-768x513.jpg)
 
+## Screenshots:
+
+![](assets/images/LandingPage)
+
+![](assets/images/AllTiles)
+
+![](assets/images/ContactForm)
+
+![](assets/images/WithinAPage)
+
+![](assets/images/GitJekyllCommandLine)
+
+![](assets/images/VMPostgresDB)
+
 
 ## Thank You to CapitalOne for This Challenge!
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Capital_One_logo.svg/1200px-Capital_One_logo.svg.png)
-
+![Capital One Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Capital_One_logo.svg/1200px-Capital_One_logo.svg.png)

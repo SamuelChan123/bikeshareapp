@@ -4,7 +4,7 @@
 
 * Used Jekyll Theme "Forty" in Github Pages, Jekyll is an extendable site generator as well as a Ruby Gem
 
-* Ran SQL queries against a PostgreSQL 10 SQL database constructed almost exactly (with the exclusion of the last two columns) as the data set provided
+* Ran SQL queries against a PostgreSQL 10 SQL database constructed almost exactly (with the exclusion of the last two columns) like the data set provided
 
 * Postgres Version: psql (PostgreSQL) 10.5 (Ubuntu 10.5-2.pgdg16.04+1)
 

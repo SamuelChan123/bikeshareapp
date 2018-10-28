@@ -29,7 +29,9 @@ nav-menu: true
 			3. The following are two tables and two graphs corresponding to those tables, the first table/graph with the top 10 stations with net inflow of bikes per day, and the second table/graph with the net outflow of bikes per day
 
 </p>
-			<p>4. On average, then, transporting bikes from the station with the greatest net inflow of bikes daily to the station with the greatest net outflow of bikes per day, and from the second greatest net inflow to the second greatest net outflow, etc. all the way to the median (net gain of 0.033 bikes) would be the most effective way to preserve a net change of 0 bikes over the course of a day (and hence, year) and to match travel patterns.  
+			<p>4. On average, then, transporting bikes from the station with the greatest net inflow of bikes daily to the station with the greatest net outflow of bikes per day, and from the second greatest net inflow to the second greatest net outflow, etc. all the way to the median (net gain of 0.033 bikes) would be the most effective way to preserve a net change of 0 bikes over the course of a day (and hence, year) and to match travel patterns. </p>
+			<p>
+						5. On average, by running the SQL query below, the 2-hour period where there is the least number of rides occurring (and hence least change in bikes), happens during 3-5 am, where there is an average of 0.08 bike rides per station (exceptionally infrequently) in this block. This would be the most optimal time to move bikes between stations.
 			<br></p>
 
 			<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=126611753&amp;format=interactive"></iframe>
@@ -134,6 +136,9 @@ nav-menu: true
 	</tr>
 </table>
 
+ <iframe width="713.5" height="441.17969833333336" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=1624575144&amp;format=interactive"></iframe>
+
+ <br><br>
 			</div>
 		</div>
 	</section>
@@ -252,6 +257,33 @@ AS s
 
 ORDER BY s.AllRides/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))) DESC) AS allNet
 
+</code></pre>
+Finding Times When Net Flow of Bikes are Relatively Stable:<br><br>
+<pre><code>
+SELECT
+	CASE
+		WHEN EXTRACT(HOUR FROM StartTime) >= 0 AND EXTRACT(HOUR FROM StartTime) <= 2
+			THEN '0-2'
+		WHEN EXTRACT(HOUR FROM StartTime) >= 3 AND EXTRACT(HOUR FROM StartTime) <= 5
+			THEN '3-5'
+		WHEN EXTRACT(HOUR FROM StartTime) >= 6 AND EXTRACT(HOUR FROM StartTime) <= 8
+			THEN '6-8'
+		WHEN EXTRACT(HOUR FROM StartTime) >= 9 AND EXTRACT(HOUR FROM StartTime) <= 11
+			THEN '9-11'
+		WHEN EXTRACT(HOUR FROM StartTime) >= 12 AND EXTRACT(HOUR FROM StartTime) <= 14
+			THEN '12-14'
+		WHEN EXTRACT(HOUR FROM StartTime) >= 15 AND EXTRACT(HOUR FROM StartTime) <= 17
+			THEN '15-17'
+		WHEN EXTRACT(HOUR FROM StartTime) >= 18 AND EXTRACT(HOUR FROM StartTime) <= 20
+			THEN '18-20'
+		WHEN EXTRACT(HOUR FROM StartTime) >= 21 AND EXTRACT(HOUR FROM StartTime) <= 23
+			THEN '21-23'
+		ELSE 'Out of Bounds'
+	END TimeOfDay,
+	(COUNT(*)/((SELECT DATE_PART('day',(SELECT MAX(StartTime) FROM BikeShare) - (SELECT MIN(StartTime) FROM BikeShare)))))/(SELECT COUNT(DISTINCT StartingId) FROM BikeShare) AS NetRidesPerDay
+FROM BikeShare
+GROUP BY TimeOfDay
+ORDER BY COUNT(*) DESC;
 </code></pre>
 	</div>
 </section>

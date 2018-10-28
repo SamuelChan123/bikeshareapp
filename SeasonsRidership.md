@@ -29,6 +29,15 @@ nav-menu: true
 			<br><br>
 			<p> Here, I graphed the combination of season and duration of ride to find the number of rides associated with each pair, displayed above in the interactive graph. As shown, Autumn/Fall is clearly the season with the most rides, followed by Summer, Winter, and Spring. 300-900s (5-15 minutes) rides tend to be the most common by a significant margin, followed by 900+ seconds (> 15 minutes), 120-300s, and 0-120s. The same trend of Autumn and summer being the seasons with the highest frequency of rides is consistent regardless of pass type. Additionally, regardless of season, 300-900s still tends to be highest frequency of ride.</p>
 
+			<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDkHpvMe6_URtnaDE1rfvSKauAQcQgESzbr7ernzcGIYiuz_fZAl-odFaRAI2dq172609pAhdRL7Pc/pubchart?oid=1893640655&amp;format=interactive"></iframe>
+			<br><br>
+
+			The average ride duration for each season graphed in the interactive graph above.
+			<br> Spring: 30.02 minutes
+			<br> Winter: 28.27 minutes
+			<br> Autumn: 24.66 minutes
+			<br> Summer: 24.17 minutes
+
 			</div>
 		</div>
 	</section>
@@ -51,6 +60,8 @@ nav-menu: true
 			<br><br>2. Passholder Type. Due to the excellent climate of the LA area, autumn is generally a great time to ride a bike and hence bike share, leading to a greater influx of monthly passes acquired (and thus rides ridden with monthly passes) than in any other season. Walk-ups are more common than monthly passes (relative to other months) in the spring because many riders generally stop their renewal of monthly passes in the winter, not renewing it until there is a wider window of leisure time/good weather (summer season).
 
 			<br><br>3. Good biking temperatures in the autumn, summer, and some of spring leads to an increase in the number of rides for a given duration in those more temperate seasons.
+
+			<br><br>4. Since rides in the spring and winter are substantially fewer in number than in summer/spring, it is more possible for the data set could be skewed due to a few outliers.
 
 			</p>
 			</div>
@@ -107,9 +118,25 @@ SELECT
 FROM BikeShare
 GROUP BY Season, DurationBucket
 ORDER BY COUNT(*) DESC, Season DESC;
-
  </code></pre>
-
+ Average Ride Duration for Each Season:
+ <br><br>
+ <pre><code>
+ SELECT
+ 	CASE
+ 		WHEN EXTRACT(MONTH FROM StartTime) >= 12 OR EXTRACT(MONTH FROM StartTime) <= 2
+ 			THEN 'Winter'
+ 		WHEN EXTRACT(MONTH FROM StartTime) >= 3 AND EXTRACT(MONTH FROM StartTime) <= 5
+ 			THEN 'Spring'
+ 		WHEN EXTRACT(MONTH FROM StartTime) >= 6 AND EXTRACT(MONTH FROM StartTime) <= 8
+ 			THEN 'Summer'
+ 		ELSE 'Autumn'
+ 	END Season,
+ AVG(Duration)/60 AS DurationInMin
+ FROM BikeShare
+ GROUP BY Season
+ ORDER BY AVG(Duration) DESC;
+  </code></pre>
 	</div>
 </section>
 
